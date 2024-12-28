@@ -4,16 +4,16 @@ import styles from '../styles/stopwatch.module.css';
 const StopWatch = () => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  
+
   const formatTime = () => {
-    const seconds = time % 60;
-    const minutes = Math.floor(time / 60);
     const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
     return `${hours} : ${minutes >= 10 ? minutes : `0${minutes}`} : ${seconds >= 10 ? seconds : `0${seconds}`}`;
   }
 
   const startTime = () => {
-    if(!isRunning) setIsRunning(true);
+    setIsRunning(true);
   }
   const stopTime = () => {
     setIsRunning(false);
@@ -24,15 +24,17 @@ const StopWatch = () => {
   }
 
   useEffect(() => {
+    let interval;
     if(isRunning) {
-      var interval = setInterval(() => {
+      interval = setInterval(() => {
         setTime((prev) => prev + 1);
       }, 1000);
     }
-
+    else {
+      clearInterval(interval);
+    }
     return () => clearInterval(interval);
   }, [isRunning]);
-
 
   return (
     <div className={styles.main}>
