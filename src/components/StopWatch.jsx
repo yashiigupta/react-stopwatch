@@ -31,7 +31,7 @@ const StopWatch = () => {
       interval = setInterval(() => {
         setMiliSeconds((prev) => {
           if(prev === 99) {
-            setTime((prev) => prev + 0.5);
+            setTime((prev) => prev + 1);
             return 0;
           }
           else {
