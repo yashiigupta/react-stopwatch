@@ -12,7 +12,7 @@ const StopWatch = () => {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time % 3600) / 60);
     const seconds = time % 60;
-    return `${hours} : ${minutes >= 10 ? minutes : `0${minutes}`} : ${seconds >= 10 ? seconds : `0${seconds}`} : ${miliseconds}`;
+    return `${hours} : ${minutes >= 10 ? minutes : `0${minutes}`} : ${seconds >= 10 ? seconds : `0${seconds}`} : ${miliseconds >= 10 ? miliseconds : `0${miliseconds}`}`;
   }
 
   const startTime = () => {
@@ -26,7 +26,10 @@ const StopWatch = () => {
     setTime(0);
     setMiliSeconds(0);
     setLapses([]);
-    setHistory((prev) => [...prev, formatTime()]);
+
+    const formattedTime = formatTime();
+    const prev = [...history, formattedTime];
+    setHistory(prev);
   }
   const recordLapse = () => {
     if(isRunning) setLapses((prev) => [...prev, formatTime()]);
