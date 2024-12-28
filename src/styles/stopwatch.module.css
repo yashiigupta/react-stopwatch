@@ -1,18 +1,19 @@
 .main {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  justify-content: center;
 }
 
 .heading {
   text-align: center;
+  align-self: center;
+  justify-self: flex-start;
   text-decoration: underline;
   margin-bottom: 2rem;
 }
 
 .clockMain {
+  padding: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,6 +22,8 @@
 
 .lapses {
   display: flex;
+  height: 90vh;
+  width: 90vw;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -39,6 +42,11 @@
   background-color: rgb(126, 154, 196);
 }
 
+.list {
+  height: 80%;
+  overflow-y: auto;
+}
+
 .btns {
   display: flex;
   justify-content: center;
@@ -54,4 +62,50 @@
   padding: 0.8rem;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .clock {
+    height: 30vh;
+    width: 45vw;
+  }
+
+  .lapses {
+    height: 80vh;
+    width: 80vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .clock {
+    height: 30vh;
+    width: 50vw;
+  }
+
+  .lapses {
+    height: 70vh;
+    width: 70vw;
+  }
+
+  .btn {
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .clock {
+    height: 20vh;
+    width: 45vw;
+    font-size: large;
+  }
+
+  .lapses {
+    height: 60vh;
+    width: 90vw;
+  }
+
+  .btn {
+    padding: 0.4rem;
+  }
 }

@@ -6,6 +6,7 @@ const StopWatch = () => {
   const [miliseconds, setMiliSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [lapses, setLapses] = useState([]);
+  const [history, setHistory] = useState([]);
 
   const formatTime = () => {
     const hours = Math.floor(time / 3600);
@@ -24,6 +25,8 @@ const StopWatch = () => {
     setIsRunning(false);
     setTime(0);
     setMiliSeconds(0);
+    setLapses([]);
+    setHistory((prev) => [...prev, formatTime()]);
   }
   const recordLapse = () => {
     if(isRunning) setLapses((prev) => [...prev, formatTime()]);
@@ -52,6 +55,14 @@ const StopWatch = () => {
 
   return (
     <div className={styles.main}>
+      <div className={styles.lapses}>
+        <h1 className={styles.heading}>History</h1>
+        <div className={styles.list}>
+          {history.map((time, index) => (
+            <p key = {index}>{time}</p>
+          ))}
+        </div>
+      </div>
       <div className={styles.clockMain}>
         <h1 className={styles.heading}>My Stopwatch</h1>
         <div className={styles.clock}>
@@ -64,14 +75,14 @@ const StopWatch = () => {
         </div>
         {isRunning && <button className={styles.btn} onClick={recordLapse}>Record Lapse</button>}
       </div>
-      <div className={styles.lapses}>
+      {isRunning && <div className={styles.lapses}>
         <h1 className={styles.heading}>Lapses</h1>
-        {isRunning && <div>
+        <div className={styles.list}>
         {lapses.map((time, index) => (
           <p key = {index}>Lap {index + 1}:&nbsp;{time}</p>
         ))}
-      </div>}
       </div>
+      </div>}
     </div>
   )
 }
