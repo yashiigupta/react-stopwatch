@@ -5,6 +5,7 @@ const StopWatch = () => {
   const [time, setTime] = useState(0);
   const [miliseconds, setMiliSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [lapses, setLapses] = useState([]);
 
   const formatTime = () => {
     const hours = Math.floor(time / 3600);
@@ -23,6 +24,9 @@ const StopWatch = () => {
     setIsRunning(false);
     setTime(0);
     setMiliSeconds(0);
+  }
+  const recordLapse = () => {
+    if(isRunning) setLapses((prev) => [...prev, formatTime()]);
   }
 
   useEffect(() => {
@@ -48,14 +52,25 @@ const StopWatch = () => {
 
   return (
     <div className={styles.main}>
-      <h1>My Stopwatch</h1>
-      <div className={styles.clock}>
-        <div>{formatTime()}</div>
+      <div className={styles.clockMain}>
+        <h1 className={styles.heading}>My Stopwatch</h1>
+        <div className={styles.clock}>
+          <div>{formatTime()}</div>
+        </div>
+        <div className={styles.btns}>
+          <button onClick={startTime} className={styles.btn}>Start</button>
+          <button onClick={stopTime} className={styles.btn}>Stop</button>
+          <button onClick={resetTime} className={styles.btn}>Reset</button>
+        </div>
+        {isRunning && <button className={styles.btn} onClick={recordLapse}>Record Lapse</button>}
       </div>
-      <div className={styles.btns}>
-        <button onClick={startTime} className={styles.btn}>Start</button>
-        <button onClick={stopTime} className={styles.btn}>Stop</button>
-        <button onClick={resetTime} className={styles.btn}>Reset</button>
+      <div className={styles.lapses}>
+        <h1 className={styles.heading}>Lapses</h1>
+        {isRunning && <div>
+        {lapses.map((time, index) => (
+          <p key = {index}>Lap {index + 1}:&nbsp;{time}</p>
+        ))}
+      </div>}
       </div>
     </div>
   )
