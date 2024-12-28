@@ -8,8 +8,8 @@
 }
 
 .clock {
-  height: 200px;
-  width: 200px;
+  height: 50vh;
+  width: 30vw;
   font-size: xx-large;
   border: 3px solid black;
   border-radius: 50%;
